@@ -11,7 +11,7 @@ provider "aws" {
 }
 
 module "unity_eks" {
-  source = "./terraform-unity-eks_module"
+  source = "./terraform_unity_eks_module"
   tags = var.tags
   deployment_name = var.deployment_name
   nodegroups = var.nodegroups
