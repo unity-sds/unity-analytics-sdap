@@ -1,0 +1,32 @@
+{{ if .Values.ingestion.enabled }}
+{{ if not .Values.ingestion.collections.configMap }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: config-operator
+  labels:
+    app: config-operator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: config-operator
+  template:
+    metadata:
+      labels:
+        app: config-operator
+    spec:
+      serviceAccountName: config-operator
+      containers:
+        - name: config-operator
+          image: {{ .Values.ingestion.configOperator.image }}
+          imagePullPolicy: Always
+      tolerations:
+        - key: "eks.amazonaws.com/nodegroup"
+          operator: "Equal"
+          value: "sdap-driver"
+          effect: "NoSchedule"
+      nodeSelector:
+        eks.amazonaws.com/nodegroup: "sdap-driver"
+{{ end }}
+{{ end }}
