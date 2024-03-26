@@ -1,6 +1,6 @@
     collections:
       - id: JPL_MUR25-JPL-L4-GLOB-v04.2
-        path: s3://uas-dev-data-1/data/JPL_MUR25-JPL-L4-GLOB-v04.2/
+        path: s3://uas-venuedev-data/data/JPL_MUR25-JPL-L4-GLOB-v04.2/
         priority: 5
         forward-processing-priority: 6
         projection: Grid
