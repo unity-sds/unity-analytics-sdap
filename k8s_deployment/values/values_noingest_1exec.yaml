@@ -18,12 +18,12 @@ webapp:
       coreLimit: "1200m"
       memory: "4g"
       tolerations:
-        - key: "sdap-role"
+        - key: "eks.amazonaws.com/nodegroup"
           operator: "Equal"
-          value: "driver"
+          value: "sdap-driver"
           effect: "NoSchedule"
       nodeSelector:
-        sdap-role: driver
+        eks.amazonaws.com/nodegroup: "sdap-driver"
 
     ## Use any of the executor configuration options available at
     ## https://github.com/GoogleCloudPlatform/spark-on-k8s-operator/blob/master/docs/user-guide.md
@@ -169,7 +169,7 @@ solr:
 ## Configuration values for the nginx-ingress dependency
 ## ref: https://github.com/helm/charts/tree/master/stable/nginx-ingress
 nginx-ingress:
-  enabled: true
+  enabled: false
   controller:
     scope:
       enabled: true
@@ -197,12 +197,12 @@ rabbitmq:
   ingress:
     enabled: true
   tolerations:
-    - key: "sdap-role"
+    - key: "eks.amazonaws.com/nodegroup"
       operator: "Equal"
-      value: "driver"
+      value: "sdap-driver"
       effect: "NoSchedule"
   nodeSelector:
-    sdap-role: driver
+    eks.amazonaws.com/nodegroup: "sdap-driver"
 
 
 ## Configuration values for the rabbitmq dependency
