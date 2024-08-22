@@ -11,7 +11,7 @@
 # 4) Install charts for dependencies: nginx-ingress, rabbitmq, solr, cassandra
 #    > cd ../../../../helm
 #    > helm repo add bitnami https://charts.bitnami.com/bitnami
-#    > helm repo add nginx https://charts.helm.sh/stable
+#    > helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 #    > helm dep update
 # 5) Deploy the minimal configuration of SDAP with Terraform
 #    > terraform init
