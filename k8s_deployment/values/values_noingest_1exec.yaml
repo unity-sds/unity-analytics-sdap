@@ -165,10 +165,9 @@ solr:
         cpu: 0.5
 
 
-
-## Configuration values for the nginx-ingress dependency
-## ref: https://github.com/helm/charts/tree/master/stable/nginx-ingress
-nginx-ingress:
+## Configuration values for the ingress-nginx dependency
+## ref: https://kubernetes.github.io/ingress-nginx
+ingress-nginx:
   enabled: false
   controller:
     scope:
@@ -179,6 +178,13 @@ nginx-ingress:
       type: LoadBalancer
       ports:
         http: 8080
+    tolerations:
+      - key: "eks.amazonaws.com/nodegroup"
+        operator: "Equal"
+        value: "sdap-driver"
+        effect: "NoSchedule"
+    nodeSelector:
+      eks.amazonaws.com/nodegroup: "sdap-driver"
   defaultBackend:
     enabled: false
 
