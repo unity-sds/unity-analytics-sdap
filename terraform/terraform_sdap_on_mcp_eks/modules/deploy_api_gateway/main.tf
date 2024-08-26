@@ -75,3 +75,18 @@ resource "aws_api_gateway_deployment" "sdap_api_deployment" {
     create_before_destroy = true
   }
 }
+
+resource "aws_ssm_parameter" "sdap_health_check" {
+  name        = "/unity/healthCheck/analysis-services/sdap"
+  description = "Health check URL for SDAP."
+  type        = "String"
+  value = jsonencode({
+    "componentName": "SDAP",
+    "healthCheckUrl": join("/", [
+      aws_api_gateway_deployment.sdap_api_deployment.invoke_url,
+      "sdap/list"
+      ])
+    "landingPageUrl": "",
+  })
+  tags = var.tags
+}
