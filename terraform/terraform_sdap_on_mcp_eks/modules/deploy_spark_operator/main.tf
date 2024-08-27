@@ -14,32 +14,6 @@
 #    > terraform plan
 #    > terraform apply
 
-terraform {
-  required_providers {
-    aws = {
-      source = "hashicorp/aws"
-    }
-    helm = {
-      source = "hashicorp/helm"
-    }
-  }
-}
-
-provider "aws" {
-  region = var.aws_region
-}
-
-data "aws_eks_cluster_auth" "this" {
-  name = var.eks_cluster_name
-}
-
-provider "helm" {
-  kubernetes {
-    config_path = "~/.kube/config"
-    token = data.aws_eks_cluster_auth.this.token
-  }
-}
-
 resource "helm_release" "spark-operator" {
   name = "spark-operator"
   chart = "spark-operator/spark-operator"

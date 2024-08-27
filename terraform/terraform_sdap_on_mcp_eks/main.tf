@@ -3,11 +3,21 @@ terraform {
     aws = {
       source = "hashicorp/aws"
     }
+    helm = {
+      source = "hashicorp/helm"
+    }
   }
 }
 
 provider "aws" {
-  region = "us-west-2"
+  region = var.aws_region
+}
+
+provider "helm" {
+  kubernetes {
+    config_path = "~/.kube/config"
+    token = data.aws_eks_cluster_auth.this.token
+  }
 }
 
 module "unity_eks" {
@@ -19,4 +29,14 @@ module "unity_eks" {
   project = var.project
   venue = var.venue
   installprefix = var.installprefix
+}
+
+module "deploy_spark_operator" {
+  source = "./modules/deploy_spark_operator"
+  depends_on = [module.unity_eks]
+  eks_cluster_name = var.deployment_name
+  aws_region = var.aws_region
+  namespace = var.spark_operator_config["namespace"]
+  helm_chart_version = var.spark_operator_config["helm_chart_version"]
+  image_tag = var.spark_operator_config["image_tag"]
 }

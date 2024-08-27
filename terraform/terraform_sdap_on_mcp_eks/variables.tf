@@ -49,7 +49,7 @@ variable "cluster_version" {
   default = "1.27"
 }
 
-variable "project"{
+variable "project" {
   description = "The unity project its installed into"
   type = string
   default = "UnknownProject"
@@ -65,4 +65,19 @@ variable "installprefix" {
   description = "The management console install prefix"
   type = string
   default = "UnknownPrefix"
+}
+
+variable "aws_region" {
+  type = string
+  default = "us-west-2"
+}
+
+variable "spark_operator_config" {
+  description = "Configuration parameters for Spark Operator deployment"
+  type = map(string)
+  default = {
+    namespace = "spark-operator",
+    helm_chart_version = "1.3.2",
+    image_tag = "v1beta2-1.4.3-3.5.0"
+  }
 }
