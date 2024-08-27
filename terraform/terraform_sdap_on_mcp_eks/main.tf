@@ -11,7 +11,7 @@ provider "aws" {
 }
 
 module "unity_eks" {
-  source = "git@github.com:unity-sds/unity-cs-infra.git//terraform-unity-eks_module?ref=unity-sps-2.1.0"
+  source = "git@github.com:unity-sds/unity-cs-infra.git//terraform-unity-eks_module"
   tags = var.tags
   deployment_name = var.deployment_name
   nodegroups = var.nodegroups
